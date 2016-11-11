@@ -169,6 +169,236 @@ public class NMapViewer extends NMapActivity {
         ConnectThread first = new ConnectThread();
         first.start();
 
+        System.out.println(data);
+        System.out.println("la : "+la);
+        System.out.println("lo : "+lo);
+        //버튼 클래스 정의
+        Button button01 = (Button) findViewById(R.id.button01) ;
+        Button button02 = (Button) findViewById(R.id.button02) ;
+
+        final Button button1 = (Button) findViewById(R.id.button1) ;
+        final Button button2 = (Button) findViewById(R.id.button2) ;
+        final Button button3 = (Button) findViewById(R.id.button3) ;
+        final Button button4 = (Button) findViewById(R.id.button4) ;
+        final Button button5 = (Button) findViewById(R.id.button5) ;
+        final Button button6 = (Button) findViewById(R.id.button6) ;
+        final Button button7 = (Button) findViewById(R.id.button7) ;
+        final Button button8 = (Button) findViewById(R.id.button8) ;
+
+        //버튼색 바로 적용
+        //데이터 반영이 된다. 바로 버튼을 세팅하자
+        for(int i=0; i<10; i++){
+            if(data[i]=='1'){
+                switch (i){
+                    case 1:{
+                        button1.setEnabled(false);
+                        button1.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 2:{
+                        button2.setEnabled(false);
+                        button2.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 3:{
+                        button3.setEnabled(false);
+                        button3.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 4:{
+                        button4.setEnabled(false);
+                        button4.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 5:{
+                        button5.setEnabled(false);
+                        button5.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 6:{
+                        button6.setEnabled(false);
+                        button6.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 7:{
+                        button7.setEnabled(false);
+                        button7.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                    case 8:{
+                        button8.setEnabled(false);
+                        button8.setBackgroundColor(Color.rgb(255,0,0));
+                        break;
+                    }
+                }//switch
+            }//if
+            else{
+                switch (i){
+                    case 1:{
+                        button1.setEnabled(true);
+                        button1.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 2:{
+                        button2.setEnabled(true);
+                        button2.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 3:{
+                        button3.setEnabled(true);
+                        button3.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 4:{
+                        button4.setEnabled(true);
+                        button4.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 5:{
+                        button5.setEnabled(true);
+                        button5.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 6:{
+                        button6.setEnabled(true);
+                        button6.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 7:{
+                        button7.setEnabled(true);
+                        button7.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                    case 8:{
+                        button8.setEnabled(true);
+                        button8.setBackgroundColor(Color.rgb(0,255,0));
+                        break;
+                    }
+                }//switch
+            }//else
+        }//for
+
+        // 버튼 이벤트 처리
+        Button.OnClickListener onClickListener = new Button.OnClickListener(){
+            public void onClick(View view){
+
+                if(click >= 1){//두번째 클릭부터 정지함
+                    button1.setEnabled(false);
+
+                    button2.setEnabled(false);
+
+                    button3.setEnabled(false);
+
+                    button4.setEnabled(false);
+
+                    button5.setEnabled(false);
+
+                    button6.setEnabled(false);
+
+                    button7.setEnabled(false);
+
+                    button8.setEnabled(false);
+                }
+
+                switch(view.getId()){
+
+                    case R.id.button01:{//소켓연결
+                        System.out.println("button01 clicked!");
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+
+                    case R.id.button02:{//새로고침
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+
+                    //1~8번 data를 수정하고 Theread 실행
+                    case R.id.button1:{//클릭시 각각 색변환, 클릭수 증가, 전달할 데이터 변경, thread 실행
+                        button1.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[1] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button2:{
+                        button2.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[2] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button3:{
+                        button3.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[3] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button4:{
+                        button4.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[4] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button5:{
+                        button5.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[5] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button6:{
+                        button6.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[6] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button7:{
+                        button7.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[7] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+                    case R.id.button8:{
+                        button8.setBackgroundColor(Color.rgb(255,0,0));
+                        click++;
+                        data[8] = '1';
+                        ConnectThread a = new ConnectThread();
+                        a.start();
+                        break;
+                    }
+
+
+                }//switch
+            }
+        };
+
+        button01.setOnClickListener(onClickListener);
+        button02.setOnClickListener(onClickListener);
+
+        button1.setOnClickListener(onClickListener);
+        button2.setOnClickListener(onClickListener);
+        button3.setOnClickListener(onClickListener);
+        button4.setOnClickListener(onClickListener);
+        button5.setOnClickListener(onClickListener);
+        button6.setOnClickListener(onClickListener);
+        button7.setOnClickListener(onClickListener);
+        button8.setOnClickListener(onClickListener);
+
+
     }
 
     @Override
