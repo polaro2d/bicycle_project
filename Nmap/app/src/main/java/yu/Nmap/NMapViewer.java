@@ -52,6 +52,19 @@ public class NMapViewer extends NMapActivity {
     private NMapView mMapView;
     private NMapController mMapController;
 
+    private int click = 1;
+
+    //예약한 변수
+    private int check;
+    private int ch_val;
+
+    private char[] data = {'*','0','0','0','0','0','0','0','0','*'};//주고받을 데이터형식
+    //1. * 데이터의 시작과 끝
+    // 2. 1~9까지는 점유정보(없음 0, 있음 1)
+    private double la;
+    private double lo;
+
+
     private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.978371, 37.5666091);
     private static final int NMAP_ZOOMLEVEL_DEFAULT = 3;
     private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_VECTOR;
