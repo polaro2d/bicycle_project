@@ -16,6 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
+import android.widget.Button;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ConnectException;
+import java.net.Socket;
+
 
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
@@ -155,6 +165,10 @@ public class NMapViewer extends NMapActivity {
 
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
+
+        ConnectThread first = new ConnectThread();
+        first.start();
+
     }
 
     @Override
@@ -922,6 +936,66 @@ public class NMapViewer extends NMapActivity {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
+    /**
+     * 소켓 연결할 스레드 정의
+     */
+    class ConnectThread extends Thread {
+
+        String toHost = "192.168.1.2";//ifconfig로 host주소 확인필
+        // 수정필요
+        //그대로
+        int port = 15000;
+
+        //스트링으로 받아오는 데이터 변수 임의로 저장해놓는 부분 없에도 됨
+        String result;
+
+        //MainActivity에서 선언한 data가 정확히 전달된다.
+        public void ConnectThread(){
+
+        }
+
+        public void run(){
+            try {
+                System.out.println("서버에 연결중입니다. 서버 IP : " + toHost);
+
+                // 소켓을 생성하여 연결을 요청한다.
+                Socket socket = new Socket(toHost, port);
+
+                // 소켓에서 나갈 데이터 생성
+                OutputStream out = socket.getOutputStream();
+                DataOutputStream dos = new DataOutputStream(out);  // 기본형 단위로 처리하는 보조스트림
+                //출력 데이터 생성
+                String out_data = new String(data,0,data.length);
+                //데이터 전송
+                dos.writeUTF(out_data);
+
+
+                //입력받는 데이터
+                InputStream in = socket.getInputStream();
+                DataInputStream dis = new DataInputStream(in); // 기본형 단위로 처리하는 보조스트림
+                String in_data = dis.readUTF();
+                String split_d[] = new String(in_data).split("/");
+                //데이터 위치정보 쪼개서 저장
+                data = split_d[0].toCharArray();
+                //위도 경도
+                la = Double.valueOf(split_d[1]);
+                lo = Double.valueOf(split_d[2]);
+
+                // 스트림과 소켓을 닫는다.
+                System.out.println("연결을 종료합니다.");
+                dos.close();
+                dis.close();
+                socket.close();
+
+            } catch (ConnectException ce) {
+                ce.printStackTrace();
+            } catch (IOException ie) {
+                ie.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } // try - catch
+        }//run
+    }//thread class
 }
 
 
