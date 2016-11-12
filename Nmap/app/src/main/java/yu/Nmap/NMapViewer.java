@@ -56,7 +56,7 @@ import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
 public class NMapViewer extends NMapActivity {
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
-
+    private static String ip;
     // set your Client ID which is registered for NMapViewer library.
     private static final String CLIENT_ID = "69nyp8lepmsK8RrvSyQH";
 
@@ -71,11 +71,11 @@ public class NMapViewer extends NMapActivity {
     private int check;
     private int ch_val;
 
-    private char[] data = {'*','0','0','0','0','0','0','0','0','*'};//주고받을 데이터형식
+    private static char[] data = {'*','0','0','0','0','0','0','0','0','*'};//주고받을 데이터형식
     //1. * 데이터의 시작과 끝
     // 2. 1~9까지는 점유정보(없음 0, 있음 1)
-    private double la;
-    private double lo;
+    private static double la;
+    private static double lo;
 
 
     private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.978371, 37.5666091);
@@ -109,6 +109,7 @@ public class NMapViewer extends NMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ConnectThread first = new ConnectThread();
+       // first.ConnectThread("");
         first.start();
         super.onCreate(savedInstanceState);
         if(USE_XML_LAYOUT) {
@@ -185,13 +186,13 @@ public class NMapViewer extends NMapActivity {
 
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
-
+        testPOIdataOverlay();
         System.out.println(data);
         System.out.println("la : "+la);
         System.out.println("lo : "+lo);
         //버튼 클래스 정의
-        //button01 = (Button) findViewById(R.id.button01) ;
-        //Button button02 = (Button) findViewById(R.id.button02) ;
+       // Button button01 = (Button) findViewById(R.id.button01) ;
+        Button button02 = (Button) findViewById(R.id.button02) ;
         //좌석 버튼
 
         final Button button1 = (Button) findViewById(R.id.button1);
@@ -209,42 +210,42 @@ public class NMapViewer extends NMapActivity {
             if(data[i]=='1'){
                 switch (i){
                     case 1:{
-                        button1.setEnabled(false);
+                        button1.setEnabled(true);
                         button1.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 2:{
-                        button2.setEnabled(false);
+                        button2.setEnabled(true);
                         button2.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 3:{
-                        button3.setEnabled(false);
+                        button3.setEnabled(true);
                         button3.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 4:{
-                        button4.setEnabled(false);
+                        button4.setEnabled(true);
                         button4.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 5:{
-                        button5.setEnabled(false);
+                        button5.setEnabled(true);
                         button5.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 6:{
-                        button6.setEnabled(false);
+                        button6.setEnabled(true);
                         button6.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 7:{
-                        button7.setEnabled(false);
+                        button7.setEnabled(true);
                         button7.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
                     case 8:{
-                        button8.setEnabled(false);
+                        button8.setEnabled(true);
                         button8.setBackgroundColor(Color.rgb(255,0,0));
                         break;
                     }
@@ -253,42 +254,42 @@ public class NMapViewer extends NMapActivity {
             else{
                 switch (i){
                     case 1:{
-                        button1.setEnabled(true);
+                        button1.setEnabled(false);
                         button1.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 2:{
-                        button2.setEnabled(true);
+                        button2.setEnabled(false);
                         button2.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 3:{
-                        button3.setEnabled(true);
+                        button3.setEnabled(false);
                         button3.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 4:{
-                        button4.setEnabled(true);
+                        button4.setEnabled(false);
                         button4.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 5:{
-                        button5.setEnabled(true);
+                        button5.setEnabled(false);
                         button5.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 6:{
-                        button6.setEnabled(true);
+                        button6.setEnabled(false);
                         button6.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 7:{
-                        button7.setEnabled(true);
+                        button7.setEnabled(false);
                         button7.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
                     case 8:{
-                        button8.setEnabled(true);
+                        button8.setEnabled(false);
                         button8.setBackgroundColor(Color.rgb(0,255,0));
                         break;
                     }
@@ -319,13 +320,6 @@ public class NMapViewer extends NMapActivity {
                 }
 
                 switch(view.getId()){
-
-                    case R.id.button01:{//소켓연결
-                        System.out.println("button01 clicked!");
-                        ConnectThread a = new ConnectThread();
-                        a.start();
-                        break;
-                    }
 
                     case R.id.button02:{//새로고침
                         ConnectThread a = new ConnectThread();
@@ -405,7 +399,7 @@ public class NMapViewer extends NMapActivity {
         };
 
         //button01.setOnClickListener(onClickListener);
-        //button02.setOnClickListener(onClickListener);
+        button02.setOnClickListener(onClickListener);
 
         button1.setOnClickListener(onClickListener);
         button2.setOnClickListener(onClickListener);
@@ -581,10 +575,13 @@ public class NMapViewer extends NMapActivity {
         // set POI data
         NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
         poiData.beginPOIdata(2);
-        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "Pizza 777-111", markerId, 0);
+        NMapPOIitem item = poiData.addPOIitem(128.754275, 35.830828, "IT관", markerId, 0);
+        NMapPOIitem item2 = poiData.addPOIitem(128.753439, 35.832593, "천마아트센터", markerId, 1);
         item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        poiData.addPOIitem(127.061, 37.51, "Pizza 123-456", markerId, 0);
-        poiData.endPOIdata();
+        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+        item.setSnippet("165.229.125.59");
+       // poiData.addPOIitem(128.754, 35.83, "IT관", markerId, 0);
+       // poiData.addPOIitem(128.753, 35.83, "천마아트센터", markerId, 1);
 
         // create POI data overlay
         NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
@@ -594,6 +591,7 @@ public class NMapViewer extends NMapActivity {
 
         // select an item
         poiDataOverlay.selectPOIitem(0, true);
+       // poiDataOverlay.selectPOIitem(1, true);
 
         // show all POI data
         //poiDataOverlay.showAllPOIdata(0);
@@ -809,8 +807,17 @@ public class NMapViewer extends NMapActivity {
             }
 
             // [[TEMP]] handle a click event of the callout
-            Toast.makeText(NMapViewer.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
+            Toast.makeText(NMapViewer.this, "주차장: " + item.getTitle(), Toast.LENGTH_LONG).show();
+            String ip = item.getSnippet();
+
+            ConnectThread first = new ConnectThread();
+            first.ConnectThread(ip);
+            first.start();
+
         }
+
+
+
 
         @Override
         public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
@@ -1180,12 +1187,13 @@ public class NMapViewer extends NMapActivity {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
+
     /**
      * 소켓 연결할 스레드 정의
      */
-    class ConnectThread extends Thread {
+    static class ConnectThread extends Thread {
 
-        String toHost = "165.229.125.59";//ifconfig로 host주소 확인필
+        static String toHost;  //"165.229.125.59";//ifconfig로 host주소 확인필
         // 수정필요
         //그대로
         int port = 15000;
@@ -1194,8 +1202,8 @@ public class NMapViewer extends NMapActivity {
         String result;
 
         //MainActivity에서 선언한 data가 정확히 전달된다.
-        public void ConnectThread(){
-
+        public static void ConnectThread(String ip){
+            ConnectThread.toHost = ip;
         }
 
         public void run(){

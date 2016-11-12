@@ -47,15 +47,13 @@
         android:title="내 위치"
         android:alphabeticShortcut="l"
         yourapp:showAsAction="ifRoom"/>
+   <!--
     <item android:id="@+id/action_test"
         android:icon="@android:drawable/ic_menu_more"
         android:title="지도보기"
         yourapp:showAsAction="ifRoom">
         <menu>
             <group>
-                <item android:id="@+id/action_new_activity"
-                    android:title="New Activity"
-                    android:alphabeticShortcut="n"/>
                 <item android:id="@+id/action_visible_bounds"
                     android:title="Test Visible Bounds"
                     android:alphabeticShortcut="v"/>
@@ -77,8 +75,10 @@
             </group>
         </menu>
     </item>
+
     <item android:id="@+id/action_navermap"
         android:title="네이버 지도앱 실행"
         android:alphabeticShortcut="m"
         yourapp:showAsAction="ifRoom"/>
+         -->
 </menu>
