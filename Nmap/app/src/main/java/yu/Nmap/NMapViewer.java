@@ -3,18 +3,21 @@ package yu.Nmap;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.Button;
 
@@ -105,11 +108,20 @@ public class NMapViewer extends NMapActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ConnectThread first = new ConnectThread();
+        first.start();
         super.onCreate(savedInstanceState);
         if(USE_XML_LAYOUT) {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.main);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            RelativeLayout relative = (RelativeLayout) inflater.inflate(R.layout.button, null);
 
-            mMapView = (NMapView) findViewById(R.id.mapView);
+            RelativeLayout.LayoutParams paramlinear = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.FILL_PARENT,
+                    RelativeLayout.LayoutParams.FILL_PARENT);
+            addContentView(relative, paramlinear);
+                    mMapView = (NMapView) findViewById(R.id.mapView);
         }else {
             // create map view
             mMapView = new NMapView(this);
@@ -120,6 +132,14 @@ public class NMapViewer extends NMapActivity {
 
             // set the activity content to the parent view
             setContentView(mMapContainerView);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            RelativeLayout relative = (RelativeLayout) inflater.inflate(R.layout.button, null);
+
+            RelativeLayout.LayoutParams paramlinear = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.FILL_PARENT,
+                    RelativeLayout.LayoutParams.FILL_PARENT);
+            addContentView(relative, paramlinear);
         }
         // set a registered Client Id for Open MapViewer Library
         mMapView.setClientId(CLIENT_ID);
@@ -166,17 +186,15 @@ public class NMapViewer extends NMapActivity {
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
 
-        ConnectThread first = new ConnectThread();
-        first.start();
-
         System.out.println(data);
         System.out.println("la : "+la);
         System.out.println("lo : "+lo);
         //버튼 클래스 정의
-        Button button01 = (Button) findViewById(R.id.button01) ;
-        Button button02 = (Button) findViewById(R.id.button02) ;
+        //button01 = (Button) findViewById(R.id.button01) ;
+        //Button button02 = (Button) findViewById(R.id.button02) ;
+        //좌석 버튼
 
-        final Button button1 = (Button) findViewById(R.id.button1) ;
+        final Button button1 = (Button) findViewById(R.id.button1);
         final Button button2 = (Button) findViewById(R.id.button2) ;
         final Button button3 = (Button) findViewById(R.id.button3) ;
         final Button button4 = (Button) findViewById(R.id.button4) ;
@@ -279,7 +297,7 @@ public class NMapViewer extends NMapActivity {
         }//for
 
         // 버튼 이벤트 처리
-        Button.OnClickListener onClickListener = new Button.OnClickListener(){
+            Button.OnClickListener onClickListener = new Button.OnClickListener(){
             public void onClick(View view){
 
                 if(click >= 1){//두번째 클릭부터 정지함
@@ -386,8 +404,8 @@ public class NMapViewer extends NMapActivity {
             }
         };
 
-        button01.setOnClickListener(onClickListener);
-        button02.setOnClickListener(onClickListener);
+        //button01.setOnClickListener(onClickListener);
+        //button02.setOnClickListener(onClickListener);
 
         button1.setOnClickListener(onClickListener);
         button2.setOnClickListener(onClickListener);
@@ -461,7 +479,7 @@ public class NMapViewer extends NMapActivity {
                     Intent goToSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(goToSettings);
 
-                    return;
+                    //return;
                 }
             }
         }
@@ -1014,7 +1032,7 @@ public class NMapViewer extends NMapActivity {
             case R.id.action_my_location:
                 startMyLocation();
                 return true;
-
+/*
             case R.id.action_poi_data:
                 mOverlayManager.clearOverlays();
 
@@ -1035,11 +1053,6 @@ public class NMapViewer extends NMapActivity {
             case R.id.action_floating_data:
                 mOverlayManager.clearOverlays();
                 testFloatingPOIdataOverlay();
-                return true;
-
-            case R.id.action_new_activity:
-                Intent intent = new Intent(this, FragmentMapActivity.class);
-                startActivity(intent);
                 return true;
 
             case R.id.action_visible_bounds:
@@ -1083,10 +1096,11 @@ public class NMapViewer extends NMapActivity {
                     mMapContainerView.requestLayout();
                 }
                 return true;
+
             case R.id.action_navermap:
                 mMapView.executeNaverMap();
                 return true;
-
+            */
         }
         return false;
     }
@@ -1171,7 +1185,7 @@ public class NMapViewer extends NMapActivity {
      */
     class ConnectThread extends Thread {
 
-        String toHost = "192.168.1.2";//ifconfig로 host주소 확인필
+        String toHost = "165.229.125.59";//ifconfig로 host주소 확인필
         // 수정필요
         //그대로
         int port = 15000;
