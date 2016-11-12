@@ -71,7 +71,7 @@ public class NMapViewer extends NMapActivity {
     private int check;
     private int ch_val;
 
-    private static char[] data = {'*','0','0','0','0','0','0','0','0','*'};//주고받을 데이터형식
+    private static char[] data = {'*','1','0','0','0','1','0','1','0','*'};//주고받을 데이터형식
     //1. * 데이터의 시작과 끝
     // 2. 1~9까지는 점유정보(없음 0, 있음 1)
     private static double la;
@@ -108,9 +108,9 @@ public class NMapViewer extends NMapActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ConnectThread first = new ConnectThread();
-       // first.ConnectThread("");
-        first.start();
+        //ConnectThread first = new ConnectThread();
+        //first.ConnectThread("");
+        //first.start();
         super.onCreate(savedInstanceState);
         if(USE_XML_LAYOUT) {
             setContentView(R.layout.main);
@@ -191,7 +191,6 @@ public class NMapViewer extends NMapActivity {
         System.out.println("la : "+la);
         System.out.println("lo : "+lo);
         //버튼 클래스 정의
-       // Button button01 = (Button) findViewById(R.id.button01) ;
         Button button02 = (Button) findViewById(R.id.button02) ;
         //좌석 버튼
 
@@ -324,6 +323,100 @@ public class NMapViewer extends NMapActivity {
                     case R.id.button02:{//새로고침
                         ConnectThread a = new ConnectThread();
                         a.start();
+                        //data = {'*','1','0','0','0','1','0','1','0','*'};//주고받을 데이터형식
+                        //data[1] = '0';
+                        //data[5] = '0';
+                        //data[7] = '0';
+                        for(int i=0; i<10; i++){
+                            if(data[i]=='1'){
+                                switch (i){
+                                    case 1:{
+                                        button1.setEnabled(true);
+                                        button1.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 2:{
+                                        button2.setEnabled(true);
+                                        button2.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 3:{
+                                        button3.setEnabled(true);
+                                        button3.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 4:{
+                                        button4.setEnabled(true);
+                                        button4.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 5:{
+                                        button5.setEnabled(true);
+                                        button5.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 6:{
+                                        button6.setEnabled(true);
+                                        button6.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 7:{
+                                        button7.setEnabled(true);
+                                        button7.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                    case 8:{
+                                        button8.setEnabled(true);
+                                        button8.setBackgroundColor(Color.rgb(255,0,0));
+                                        break;
+                                    }
+                                }//switch
+                            }//if
+                            else{
+                                switch (i){
+                                    case 1:{
+                                        button1.setEnabled(false);
+                                        button1.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 2:{
+                                        button2.setEnabled(false);
+                                        button2.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 3:{
+                                        button3.setEnabled(false);
+                                        button3.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 4:{
+                                        button4.setEnabled(false);
+                                        button4.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 5:{
+                                        button5.setEnabled(false);
+                                        button5.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 6:{
+                                        button6.setEnabled(false);
+                                        button6.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 7:{
+                                        button7.setEnabled(false);
+                                        button7.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                    case 8:{
+                                        button8.setEnabled(false);
+                                        button8.setBackgroundColor(Color.rgb(0,255,0));
+                                        break;
+                                    }
+                                }//switch
+                            }//else
+                        }//for
                         break;
                     }
 
@@ -548,25 +641,6 @@ public class NMapViewer extends NMapActivity {
         }
     }
 
-    private void testPathPOIdataOverlay() {
-
-        // set POI data
-        NMapPOIdata poiData = new NMapPOIdata(4, mMapViewerResourceProvider, true);
-        poiData.beginPOIdata(4);
-        poiData.addPOIitem(349652983, 149297368, "Pizza 124-456", NMapPOIflagType.FROM, null);
-        poiData.addPOIitem(349652966, 149296906, null, NMapPOIflagType.NUMBER_BASE + 1, null);
-        poiData.addPOIitem(349651062, 149296913, null, NMapPOIflagType.NUMBER_BASE + 999, null);
-        poiData.addPOIitem(349651376, 149297750, "Pizza 000-999", NMapPOIflagType.TO, null);
-        poiData.endPOIdata();
-
-        // create POI data overlay
-        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-
-        // set event listener to the overlay
-        poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
-
-    }
-
     private void testPOIdataOverlay() {
 
         // Markers for POI item
@@ -595,40 +669,6 @@ public class NMapViewer extends NMapActivity {
 
         // show all POI data
         //poiDataOverlay.showAllPOIdata(0);
-    }
-
-    private void testFloatingPOIdataOverlay() {
-        // Markers for POI item
-        int marker1 = NMapPOIflagType.PIN;
-
-        // set POI data
-        NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
-        poiData.beginPOIdata(1);
-        NMapPOIitem item = poiData.addPOIitem(null, "Touch & Drag to Move", marker1, 0);
-        if (item != null) {
-            // initialize location to the center of the map view.
-            item.setPoint(mMapController.getMapCenter());
-            // set floating mode
-            item.setFloatingMode(NMapPOIitem.FLOATING_TOUCH | NMapPOIitem.FLOATING_DRAG);
-            // show right button on callout
-            item.setRightButton(true);
-
-            mFloatingPOIitem = item;
-        }
-        poiData.endPOIdata();
-
-        // create POI data overlay
-        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-        if (poiDataOverlay != null) {
-            poiDataOverlay.setOnFloatingItemChangeListener(onPOIdataFloatingItemChangeListener);
-
-            // set event listener to the overlay
-            poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
-
-            poiDataOverlay.selectPOIitem(0, false);
-
-            mFloatingPOIdataOverlay = poiDataOverlay;
-        }
     }
 
     /* NMapDataProvider Listener */
@@ -813,7 +853,6 @@ public class NMapViewer extends NMapActivity {
             ConnectThread first = new ConnectThread();
             first.ConnectThread(ip);
             first.start();
-
         }
 
 
