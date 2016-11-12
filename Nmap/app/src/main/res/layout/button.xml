@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    >
 
 
     <Button
@@ -11,7 +12,8 @@
         android:id="@+id/button02"
         android:layout_above="@+id/button1"
         android:layout_alignEnd="@+id/button1"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="41dp"
+        />
 
     <Button
         android:layout_width="45dp"
@@ -19,6 +21,7 @@
         android:text="1"
         android:id="@+id/button1"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
          />
 
     <Button
@@ -27,7 +30,8 @@
         android:text="2"
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button1" />
+        android:layout_toEndOf="@+id/button1"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="45dp"
@@ -35,7 +39,8 @@
         android:text="3"
         android:id="@+id/button3"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button2" />
+        android:layout_toEndOf="@+id/button2"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="45dp"
@@ -43,7 +48,8 @@
         android:text="4"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button3" />
+        android:layout_toEndOf="@+id/button3"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="45dp"
@@ -51,7 +57,8 @@
         android:text="5"
         android:id="@+id/button5"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button4" />
+        android:layout_toEndOf="@+id/button4"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="45dp"
@@ -59,7 +66,8 @@
         android:text="6"
         android:id="@+id/button6"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button5" />
+        android:layout_toEndOf="@+id/button5"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="45dp"
@@ -67,7 +75,8 @@
         android:text="7"
         android:id="@+id/button7"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button6" />
+        android:layout_toEndOf="@+id/button6"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="45dp"
@@ -75,7 +84,8 @@
         android:text="8"
         android:id="@+id/button8"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/button7" />
+        android:layout_toEndOf="@+id/button7"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

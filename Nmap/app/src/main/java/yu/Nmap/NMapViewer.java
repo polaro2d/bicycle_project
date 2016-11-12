@@ -77,6 +77,10 @@ public class NMapViewer extends NMapActivity {
     private static double la;
     private static double lo;
 
+    //back 버튼 두번 누르면 종료하게 하기
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
 
     private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.978371, 37.5666091);
     private static final int NMAP_ZOOMLEVEL_DEFAULT = 3;
@@ -324,9 +328,9 @@ public class NMapViewer extends NMapActivity {
                         ConnectThread a = new ConnectThread();
                         a.start();
                         //data = {'*','1','0','0','0','1','0','1','0','*'};//주고받을 데이터형식
-                        //data[1] = '0';
-                        //data[5] = '0';
-                        //data[7] = '0';
+                        data[1] = '0';
+                        data[5] = '0';
+                        data[7] = '0';
                         for(int i=0; i<10; i++){
                             if(data[i]=='1'){
                                 switch (i){
@@ -849,10 +853,25 @@ public class NMapViewer extends NMapActivity {
             // [[TEMP]] handle a click event of the callout
             Toast.makeText(NMapViewer.this, "주차장: " + item.getTitle(), Toast.LENGTH_LONG).show();
             String ip = item.getSnippet();
-
+            Button b1 = (Button) findViewById(R.id.button1);
+            Button b2 = (Button) findViewById(R.id.button2);
+            Button b3 = (Button) findViewById(R.id.button3);
+            Button b4 = (Button) findViewById(R.id.button4);
+            Button b5 = (Button) findViewById(R.id.button5);
+            Button b6 = (Button) findViewById(R.id.button6);
+            Button b7 = (Button) findViewById(R.id.button7);
+            Button b8 = (Button) findViewById(R.id.button8);
             ConnectThread first = new ConnectThread();
             first.ConnectThread(ip);
             first.start();
+            b1.setVisibility(View.VISIBLE);
+            b2.setVisibility(View.VISIBLE);
+            b3.setVisibility(View.VISIBLE);
+            b4.setVisibility(View.VISIBLE);
+            b5.setVisibility(View.VISIBLE);
+            b6.setVisibility(View.VISIBLE);
+            b7.setVisibility(View.VISIBLE);
+            b8.setVisibility(View.VISIBLE);
         }
 
 
@@ -1149,6 +1168,41 @@ public class NMapViewer extends NMapActivity {
             */
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+        Button b1 = (Button) findViewById(R.id.button1);
+        Button b2 = (Button) findViewById(R.id.button2);
+        Button b3 = (Button) findViewById(R.id.button3);
+        Button b4 = (Button) findViewById(R.id.button4);
+        Button b5 = (Button) findViewById(R.id.button5);
+        Button b6 = (Button) findViewById(R.id.button6);
+        Button b7 = (Button) findViewById(R.id.button7);
+        Button b8 = (Button) findViewById(R.id.button8);
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+
+            backPressedTime = tempTime;
+            b1.setVisibility(View.VISIBLE);
+            if(b1.getVisibility() == View.VISIBLE){
+                b1.setVisibility(View.GONE);
+                b2.setVisibility(View.GONE);
+                b3.setVisibility(View.GONE);
+                b4.setVisibility(View.GONE);
+                b5.setVisibility(View.GONE);
+                b6.setVisibility(View.GONE);
+                b7.setVisibility(View.GONE);
+                b8.setVisibility(View.GONE);
+            }
+            Toast.makeText(getApplicationContext(), "한번 더 뒤로가기 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void invalidateMenu() {
