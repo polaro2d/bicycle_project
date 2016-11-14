@@ -71,7 +71,7 @@ public class NMapViewer extends NMapActivity {
     private int check;
     private int ch_val;
 
-    private static char[] data = {'*','1','0','0','0','1','0','1','0','*'};//주고받을 데이터형식
+    private static char[] data = {'*','0','0','0','0','0','0','0','0','*'};//주고받을 데이터형식
     //1. * 데이터의 시작과 끝
     // 2. 1~9까지는 점유정보(없음 0, 있음 1)
     private static double la;
@@ -328,9 +328,9 @@ public class NMapViewer extends NMapActivity {
                         ConnectThread a = new ConnectThread();
                         a.start();
                         //data = {'*','1','0','0','0','1','0','1','0','*'};//주고받을 데이터형식
-                        data[1] = '0';
-                        data[5] = '0';
-                        data[7] = '0';
+                        //data[1] = '0';
+                        //data[5] = '0';
+                        //data[7] = '0';
                         for(int i=0; i<10; i++){
                             if(data[i]=='1'){
                                 switch (i){
@@ -657,7 +657,7 @@ public class NMapViewer extends NMapActivity {
         NMapPOIitem item2 = poiData.addPOIitem(128.753439, 35.832593, "천마아트센터", markerId, 1);
         item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
         item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        item.setSnippet("165.229.125.59");
+        item.setSnippet("192.168.1.6");
        // poiData.addPOIitem(128.754, 35.83, "IT관", markerId, 0);
        // poiData.addPOIitem(128.753, 35.83, "천마아트센터", markerId, 1);
 
@@ -1286,7 +1286,7 @@ public class NMapViewer extends NMapActivity {
      */
     static class ConnectThread extends Thread {
 
-        static String toHost;  //"165.229.125.59";//ifconfig로 host주소 확인필
+        static String toHost ;//= "165.229.125.59";  //"165.229.125.59";//ifconfig로 host주소 확인필
         // 수정필요
         //그대로
         int port = 15000;
@@ -1323,8 +1323,8 @@ public class NMapViewer extends NMapActivity {
                 //데이터 위치정보 쪼개서 저장
                 data = split_d[0].toCharArray();
                 //위도 경도
-                la = Double.valueOf(split_d[1]);
-                lo = Double.valueOf(split_d[2]);
+//                la = Double.valueOf(split_d[1]);
+//                lo = Double.valueOf(split_d[2]);
 
                 // 스트림과 소켓을 닫는다.
                 System.out.println("연결을 종료합니다.");
