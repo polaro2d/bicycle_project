@@ -1,5 +1,8 @@
 package yu.Nmap;
 
+import android.app.PendingIntent;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -66,7 +69,8 @@ public class NMapViewer extends NMapActivity {
     private NMapController mMapController;
 
     private int click = 1;
-
+    private int[] btn = {0,0,0,0,0,0,0,0,0}; // 버튼 변수
+    private int check_num=0;
     //예약한 변수
     private int check;
     private int ch_val;
@@ -198,7 +202,7 @@ public class NMapViewer extends NMapActivity {
         Button button02 = (Button) findViewById(R.id.button02) ;
         //좌석 버튼
 
-        final Button button1 = (Button) findViewById(R.id.button1);
+        final Button button1 = (Button) findViewById(R.id.button1) ;
         final Button button2 = (Button) findViewById(R.id.button2) ;
         final Button button3 = (Button) findViewById(R.id.button3) ;
         final Button button4 = (Button) findViewById(R.id.button4) ;
@@ -304,7 +308,7 @@ public class NMapViewer extends NMapActivity {
             Button.OnClickListener onClickListener = new Button.OnClickListener(){
             public void onClick(View view){
 
-                if(click >= 1){//두번째 클릭부터 정지함
+                if(btn[0] >= 1 || btn[1] >= 1 || btn[2] >=1 || btn[3] >=1 || btn[4] >=1 || btn[5] >=1 || btn[6] >=1 || btn[7] >=1 || btn[8] >=1){//두번째 클릭부터 정지함
                     button1.setEnabled(false);
 
                     button2.setEnabled(false);
@@ -322,6 +326,8 @@ public class NMapViewer extends NMapActivity {
                     button8.setEnabled(false);
                 }
 
+
+
                 switch(view.getId()){
 
                     case R.id.button02:{//새로고침
@@ -331,6 +337,44 @@ public class NMapViewer extends NMapActivity {
                         //data[1] = '0';
                         //data[5] = '0';
                         //data[7] = '0';
+                        for (int j=0;j<9; j++){
+                            if(btn[j]==1){
+                                switch(j){
+                                    case 1:
+                                        off_push(button1);
+                                        btn[1] = 0;
+                                        break;
+                                    case 2:
+                                        off_push(button2);
+                                        btn[2] = 0;
+                                        break;
+                                    case 3:
+                                        off_push(button3);
+                                        btn[3] = 0;
+                                        break;
+                                    case 4:
+                                        off_push(button4);
+                                        btn[4] = 0;
+                                        break;
+                                    case 5:
+                                        off_push(button5);
+                                        btn[5] = 0;
+                                        break;
+                                    case 6:
+                                        off_push(button6);
+                                        btn[6] = 0;
+                                        break;
+                                    case 7:
+                                        off_push(button7);
+                                        btn[7] = 0;
+                                        break;
+                                    case 8:
+                                        off_push(button8);
+                                        btn[8] = 0;
+                                        break;
+                                }
+                            }
+                        }
                         for(int i=0; i<10; i++){
                             if(data[i]=='1'){
                                 switch (i){
@@ -426,64 +470,74 @@ public class NMapViewer extends NMapActivity {
 
                     //1~8번 data를 수정하고 Theread 실행
                     case R.id.button1:{//클릭시 각각 색변환, 클릭수 증가, 전달할 데이터 변경, thread 실행
-                        button1.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button1.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[1]++;
+                        //click++;
                         data[1] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
+                        push(button1);//푸쉬 알람 전송
                         break;
                     }
                     case R.id.button2:{
-                        button2.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button2.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[2]++;
+                        //click++;
                         data[2] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
+                        push(button2);//푸쉬알람 전송
                         break;
                     }
                     case R.id.button3:{
-                        button3.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button3.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[3]++;
+                        //click++;
                         data[3] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
                         break;
                     }
                     case R.id.button4:{
-                        button4.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button4.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[4]++;
+                        //click++;
                         data[4] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
                         break;
                     }
                     case R.id.button5:{
-                        button5.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button5.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[5]++;
+                        //click++;
                         data[5] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
                         break;
                     }
                     case R.id.button6:{
-                        button6.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button6.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[6]++;
+                        //click++;
                         data[6] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
                         break;
                     }
                     case R.id.button7:{
-                        button7.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button7.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[7]++;
+                        //click++;
                         data[7] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
                         break;
                     }
                     case R.id.button8:{
-                        button8.setBackgroundColor(Color.rgb(255,0,0));
-                        click++;
+                        button8.setBackgroundColor(Color.rgb(255,255,0));
+                        btn[8]++;
+                        //click++;
                         data[8] = '1';
                         ConnectThread a = new ConnectThread();
                         a.start();
@@ -509,9 +563,60 @@ public class NMapViewer extends NMapActivity {
 
 
     }
+    public void push(View v) {
+        NotificationManager notificationManager= (NotificationManager)NMapViewer.this.getSystemService(NMapViewer.this.NOTIFICATION_SERVICE);
+        Intent intent1 = new Intent(NMapViewer.this.getApplicationContext(),NMapViewer.class); //인텐트 생성.
 
-    @Override
-          protected void onStart() {
+
+        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를없앤다.
+
+        PendingIntent pendingNotificationIntent = PendingIntent.getActivity( NMapViewer.this,0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
+        //PendingIntent는 일회용 인텐트 같은 개념입니다.
+        //FLAG_UPDATE_CURRENT - > 만일 이미 생성된 PendingIntent가 존재 한다면, 해당 Intent의 내용을 변경함.
+        //FLAG_CANCEL_CURRENT - .이전에 생성한 PendingIntent를 취소하고 새롭게 하나 만든다.
+        //FLAG_NO_CREATE -> 현재 생성된 PendingIntent를 반환합니다.
+        //FLAG_ONE_SHOT - >이 플래그를 사용해 생성된 PendingIntent는 단 한번밖에 사용할 수 없습니다
+        builder.setSmallIcon(R.drawable.btn_green_highlight).setTicker("거치성공!!").setWhen(System.currentTimeMillis())
+                .setNumber(1).setContentTitle("YU 자전거 거치대").setContentText("거치성공!!")
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingNotificationIntent).setAutoCancel(true).setOngoing(true);
+        //해당 부분은 API 4.1버전부터 작동합니다.
+        //setSmallIcon - > 작은 아이콘 이미지
+        //setTicker - > 알람이 출력될 때 상단에 나오는 문구.
+        //setWhen -> 알림 출력 시간.
+        //setContentTitle-> 알림 제목
+        //setConentText->푸쉬내용
+        notificationManager.notify(1, builder.build()); // Notification send
+    }
+    public void off_push(View v) {
+        NotificationManager notificationManager= (NotificationManager)NMapViewer.this.getSystemService(NMapViewer.this.NOTIFICATION_SERVICE);
+        Intent intent1 = new Intent(NMapViewer.this.getApplicationContext(),NMapViewer.class); //인텐트 생성.
+
+
+        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를없앤다.
+
+        PendingIntent pendingNotificationIntent = PendingIntent.getActivity( NMapViewer.this,0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
+        //PendingIntent는 일회용 인텐트 같은 개념입니다.
+        //FLAG_UPDATE_CURRENT - > 만일 이미 생성된 PendingIntent가 존재 한다면, 해당 Intent의 내용을 변경함.
+        //FLAG_CANCEL_CURRENT - .이전에 생성한 PendingIntent를 취소하고 새롭게 하나 만든다.
+        //FLAG_NO_CREATE -> 현재 생성된 PendingIntent를 반환합니다.
+        //FLAG_ONE_SHOT - >이 플래그를 사용해 생성된 PendingIntent는 단 한번밖에 사용할 수 없습니다
+        builder.setSmallIcon(R.drawable.btn_green_highlight).setTicker("거치해제!!").setWhen(System.currentTimeMillis())
+                .setNumber(1).setContentTitle("YU 자전거 거치대").setContentText("거치해제!!")
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingNotificationIntent).setAutoCancel(true).setOngoing(true);
+        //해당 부분은 API 4.1버전부터 작동합니다.
+        //setSmallIcon - > 작은 아이콘 이미지
+        //setTicker - > 알람이 출력될 때 상단에 나오는 문구.
+        //setWhen -> 알림 출력 시간.
+        //setContentTitle-> 알림 제목
+        //setConentText->푸쉬내용
+        notificationManager.notify(1, builder.build()); // Notification send
+    }
+        @Override
+        protected void onStart() {
             super.onStart();
         }
 
@@ -657,7 +762,8 @@ public class NMapViewer extends NMapActivity {
         NMapPOIitem item2 = poiData.addPOIitem(128.753439, 35.832593, "천마아트센터", markerId, 1);
         item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
         item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        item.setSnippet("192.168.1.6");
+        item.setSnippet("192.168.1.6");//IT관에 거치하는 RPI 아이피정보 설정
+        item2.setSnippet("192.168.1.9");//천마아트센터에 거치하는  RPI 아이피정보 설정
        // poiData.addPOIitem(128.754, 35.83, "IT관", markerId, 0);
        // poiData.addPOIitem(128.753, 35.83, "천마아트센터", markerId, 1);
 
