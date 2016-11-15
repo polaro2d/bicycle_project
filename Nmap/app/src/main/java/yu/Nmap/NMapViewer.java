@@ -23,6 +23,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import com.beardedhen.androidbootstrap.font.*;
+import com.beardedhen.androidbootstrap.utils.ColorUtils;
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapController;
@@ -52,6 +56,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
+import com.beardedhen.androidbootstrap.api.attributes.ViewGroupPosition;
+import com.beardedhen.androidbootstrap.api.defaults.ButtonMode;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.beardedhen.androidbootstrap.api.view.BadgeContainerView;
+import com.beardedhen.androidbootstrap.api.view.BootstrapBadgeView;
+import com.beardedhen.androidbootstrap.api.view.BootstrapSizeView;
+import com.beardedhen.androidbootstrap.api.view.ButtonModeView;
+import com.beardedhen.androidbootstrap.api.view.OutlineableView;
+import com.beardedhen.androidbootstrap.api.view.RoundableView;
+import com.beardedhen.androidbootstrap.utils.DimenUtils;
+import com.beardedhen.androidbootstrap.utils.ViewUtils;
+
+import java.io.Serializable;
 
 public class NMapViewer extends NMapActivity {
     private static final String LOG_TAG = "NMapViewer";
@@ -112,6 +130,7 @@ public class NMapViewer extends NMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TypefaceProvider.registerDefaultIconSets();
         if(USE_XML_LAYOUT) {
             setContentView(R.layout.main);
             LayoutInflater inflater = (LayoutInflater)getSystemService(
@@ -193,17 +212,16 @@ public class NMapViewer extends NMapActivity {
         System.out.println("la : "+la);
         System.out.println("lo : "+lo);
         //버튼 클래스 정의
-        Button button02 = (Button) findViewById(R.id.button02) ;
+        BootstrapButton button02 = (BootstrapButton) findViewById(R.id.button02) ;
         //좌석 버튼
-
-        final Button button1 = (Button) findViewById(R.id.button1) ;
-        final Button button2 = (Button) findViewById(R.id.button2) ;
-        final Button button3 = (Button) findViewById(R.id.button3) ;
-        final Button button4 = (Button) findViewById(R.id.button4) ;
-        final Button button5 = (Button) findViewById(R.id.button5) ;
-        final Button button6 = (Button) findViewById(R.id.button6) ;
-        final Button button7 = (Button) findViewById(R.id.button7) ;
-        final Button button8 = (Button) findViewById(R.id.button8) ;
+        final BootstrapButton button1 = (BootstrapButton) findViewById(R.id.button1) ;
+        final BootstrapButton button2 = (BootstrapButton) findViewById(R.id.button2) ;
+        final BootstrapButton button3 = (BootstrapButton) findViewById(R.id.button3) ;
+        final BootstrapButton button4 = (BootstrapButton) findViewById(R.id.button4) ;
+        final BootstrapButton button5 = (BootstrapButton) findViewById(R.id.button5) ;
+        final BootstrapButton button6 = (BootstrapButton) findViewById(R.id.button6) ;
+        final BootstrapButton button7 = (BootstrapButton) findViewById(R.id.button7) ;
+        final BootstrapButton button8 = (BootstrapButton) findViewById(R.id.button8) ;
 
         //버튼색 바로 적용
         //데이터 반영이 된다. 바로 버튼을 세팅하자
@@ -953,17 +971,19 @@ public class NMapViewer extends NMapActivity {
             // [[TEMP]] handle a click event of the callout
             Toast.makeText(NMapViewer.this, "주차장: " + item.getTitle(), Toast.LENGTH_LONG).show();
             String ip = item.getSnippet();
-            Button b1 = (Button) findViewById(R.id.button1);
-            Button b2 = (Button) findViewById(R.id.button2);
-            Button b3 = (Button) findViewById(R.id.button3);
-            Button b4 = (Button) findViewById(R.id.button4);
-            Button b5 = (Button) findViewById(R.id.button5);
-            Button b6 = (Button) findViewById(R.id.button6);
-            Button b7 = (Button) findViewById(R.id.button7);
-            Button b8 = (Button) findViewById(R.id.button8);
+            BootstrapButton b02 = (BootstrapButton) findViewById(R.id.button02);
+            BootstrapButton b1 = (BootstrapButton) findViewById(R.id.button1);
+            BootstrapButton b2 = (BootstrapButton) findViewById(R.id.button2);
+            BootstrapButton b3 = (BootstrapButton) findViewById(R.id.button3);
+            BootstrapButton b4 = (BootstrapButton) findViewById(R.id.button4);
+            BootstrapButton b5 = (BootstrapButton) findViewById(R.id.button5);
+            BootstrapButton b6 = (BootstrapButton) findViewById(R.id.button6);
+            BootstrapButton b7 = (BootstrapButton) findViewById(R.id.button7);
+            BootstrapButton b8 = (BootstrapButton) findViewById(R.id.button8);
             ConnectThread first = new ConnectThread();
             first.ConnectThread(ip);
             first.start();
+            b02.setVisibility(View.VISIBLE);
             b1.setVisibility(View.VISIBLE);
             b2.setVisibility(View.VISIBLE);
             b3.setVisibility(View.VISIBLE);
@@ -1245,14 +1265,15 @@ public class NMapViewer extends NMapActivity {
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
-        Button b1 = (Button) findViewById(R.id.button1);
-        Button b2 = (Button) findViewById(R.id.button2);
-        Button b3 = (Button) findViewById(R.id.button3);
-        Button b4 = (Button) findViewById(R.id.button4);
-        Button b5 = (Button) findViewById(R.id.button5);
-        Button b6 = (Button) findViewById(R.id.button6);
-        Button b7 = (Button) findViewById(R.id.button7);
-        Button b8 = (Button) findViewById(R.id.button8);
+        BootstrapButton b02 = (BootstrapButton) findViewById((R.id.button02));
+        BootstrapButton b1 = (BootstrapButton) findViewById(R.id.button1);
+        BootstrapButton b2 = (BootstrapButton) findViewById(R.id.button2);
+        BootstrapButton b3 = (BootstrapButton) findViewById(R.id.button3);
+        BootstrapButton b4 = (BootstrapButton) findViewById(R.id.button4);
+        BootstrapButton b5 = (BootstrapButton) findViewById(R.id.button5);
+        BootstrapButton b6 = (BootstrapButton) findViewById(R.id.button6);
+        BootstrapButton b7 = (BootstrapButton) findViewById(R.id.button7);
+        BootstrapButton b8 = (BootstrapButton) findViewById(R.id.button8);
         if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
         {
             super.onBackPressed();
@@ -1263,6 +1284,7 @@ public class NMapViewer extends NMapActivity {
             backPressedTime = tempTime;
             b1.setVisibility(View.VISIBLE);
             if(b1.getVisibility() == View.VISIBLE){
+                b02.setVisibility(View.GONE);
                 b1.setVisibility(View.GONE);
                 b2.setVisibility(View.GONE);
                 b3.setVisibility(View.GONE);

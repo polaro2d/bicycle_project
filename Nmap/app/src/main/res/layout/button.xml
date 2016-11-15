@@ -2,90 +2,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1">
 
+    <com.beardedhen.androidbootstrap.BootstrapButton
+    android:layout_width="55dp"
+    android:layout_height="55dp"
+    android:id="@+id/button02"
+    android:layout_above="@+id/button1"
+    android:visibility="gone"
+    app:fontAwesomeIcon="fa_refresh"
+    />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button02"
-        android:layout_above="@+id/button1"
-        android:layout_alignEnd="@+id/button1"
-        android:layout_marginTop="41dp"
-        />
-
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="1"
         android:id="@+id/button1"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
+        app:bootstrapSize="md"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}1"
          />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="2"
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button1"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}2"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="3"
         android:id="@+id/button3"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button2"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}3"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="4"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button3"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}4"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="5"
         android:id="@+id/button5"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button4"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}5"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="6"
         android:id="@+id/button6"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button5"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}6"
+        android:textColor="@color/bootstrap_gray_dark"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="7"
         android:id="@+id/button7"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button6"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}7"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="45dp"
         android:layout_height="80dp"
         android:text="8"
         android:id="@+id/button8"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button7"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="sm"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        app:bootstrapText="{fa_bicycle}8"
+        />
 
 
 </RelativeLayout>
