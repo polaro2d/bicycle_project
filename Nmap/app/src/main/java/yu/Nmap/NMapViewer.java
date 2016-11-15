@@ -1,8 +1,8 @@
 package yu.Nmap;
 
-import android.app.PendingIntent;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,19 +20,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.Button;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.ConnectException;
-import java.net.Socket;
-
-
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapController;
@@ -55,6 +45,13 @@ import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ConnectException;
+import java.net.Socket;
 
 public class NMapViewer extends NMapActivity {
     private static final String LOG_TAG = "NMapViewer";
@@ -64,11 +61,9 @@ public class NMapViewer extends NMapActivity {
     private static final String CLIENT_ID = "69nyp8lepmsK8RrvSyQH";
 
     private MapContainerView mMapContainerView;
-
     private NMapView mMapView;
     private NMapController mMapController;
 
-    private int click = 1;
     private int[] btn = {0,0,0,0,0,0,0,0,0}; // 버튼 변수
     private int check_num=0;
     //예약한 변수
@@ -116,9 +111,6 @@ public class NMapViewer extends NMapActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //ConnectThread first = new ConnectThread();
-        //first.ConnectThread("");
-        //first.start();
         super.onCreate(savedInstanceState);
         if(USE_XML_LAYOUT) {
             setContentView(R.layout.main);
@@ -130,7 +122,7 @@ public class NMapViewer extends NMapActivity {
                     RelativeLayout.LayoutParams.FILL_PARENT,
                     RelativeLayout.LayoutParams.FILL_PARENT);
             addContentView(relative, paramlinear);
-                    mMapView = (NMapView) findViewById(R.id.mapView);
+            mMapView = (NMapView) findViewById(R.id.mapView);
         }else {
             // create map view
             mMapView = new NMapView(this);
@@ -166,7 +158,9 @@ public class NMapViewer extends NMapActivity {
         mMapView.setOnMapViewDelegate(onMapViewTouchDelegate);
 
         // use map controller to zoom in/out, pan and set map center, zoom level etc.
+
         mMapController = mMapView.getMapController();
+        mMapController.setMapViewBicycleMode(true);
 
         // use built in zoom controls
         NMapView.LayoutParams lp = new NMapView.LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -305,7 +299,7 @@ public class NMapViewer extends NMapActivity {
         }//for
 
         // 버튼 이벤트 처리
-            Button.OnClickListener onClickListener = new Button.OnClickListener(){
+        Button.OnClickListener onClickListener = new Button.OnClickListener(){
             public void onClick(View view){
 
                 if(btn[0] >= 1 || btn[1] >= 1 || btn[2] >=1 || btn[3] >=1 || btn[4] >=1 || btn[5] >=1 || btn[6] >=1 || btn[7] >=1 || btn[8] >=1){//두번째 클릭부터 정지함
@@ -615,18 +609,18 @@ public class NMapViewer extends NMapActivity {
         //setConentText->푸쉬내용
         notificationManager.notify(1, builder.build()); // Notification send
     }
-        @Override
-        protected void onStart() {
-            super.onStart();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
-        @Override
-        protected void onResume() {
-            super.onResume();
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
-        @Override
-        protected void onStop() {
+    @Override
+    protected void onStop() {
 
         stopMyLocation();
 
@@ -764,8 +758,8 @@ public class NMapViewer extends NMapActivity {
         item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
         item.setSnippet("192.168.1.6");//IT관에 거치하는 RPI 아이피정보 설정
         item2.setSnippet("192.168.1.9");//천마아트센터에 거치하는  RPI 아이피정보 설정
-       // poiData.addPOIitem(128.754, 35.83, "IT관", markerId, 0);
-       // poiData.addPOIitem(128.753, 35.83, "천마아트센터", markerId, 1);
+        // poiData.addPOIitem(128.754, 35.83, "IT관", markerId, 0);
+        // poiData.addPOIitem(128.753, 35.83, "천마아트센터", markerId, 1);
 
         // create POI data overlay
         NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
@@ -775,7 +769,7 @@ public class NMapViewer extends NMapActivity {
 
         // select an item
         poiDataOverlay.selectPOIitem(0, true);
-       // poiDataOverlay.selectPOIitem(1, true);
+        // poiDataOverlay.selectPOIitem(1, true);
 
         // show all POI data
         //poiDataOverlay.showAllPOIdata(0);
@@ -1133,7 +1127,6 @@ public class NMapViewer extends NMapActivity {
         edit.putBoolean(KEY_BICYCLE_MODE, bicycleMode);
 
         edit.commit();
-
     }
 
     /**
@@ -1154,28 +1147,14 @@ public class NMapViewer extends NMapActivity {
         boolean isTraffic = mMapController.getMapViewTrafficMode();
         boolean isBicycle = mMapController.getMapViewBicycleMode();
 
-        menu.findItem(R.id.action_revert).setEnabled((viewMode != NMapView.VIEW_MODE_VECTOR) || isTraffic || mOverlayManager.sizeofOverlays() > 0);
         menu.findItem(R.id.action_vector).setChecked(viewMode == NMapView.VIEW_MODE_VECTOR);
         menu.findItem(R.id.action_satellite).setChecked(viewMode == NMapView.VIEW_MODE_HYBRID);
-        menu.findItem(R.id.action_traffic).setChecked(isTraffic);
-        menu.findItem(R.id.action_bicycle).setChecked(isBicycle);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_revert:
-                if (mMyLocationOverlay != null) {
-                    stopMyLocation();
-                    mOverlayManager.removeOverlay(mMyLocationOverlay);
-                }
-
-                mMapController.setMapViewMode(NMapView.VIEW_MODE_VECTOR);
-                mMapController.setMapViewTrafficMode(false);
-                mMapController.setMapViewBicycleMode(false);
-                mOverlayManager.clearOverlays();
-                return true;
             case R.id.action_vector:
                 invalidateMenu();
                 mMapController.setMapViewMode(NMapView.VIEW_MODE_VECTOR);
@@ -1184,20 +1163,6 @@ public class NMapViewer extends NMapActivity {
             case R.id.action_satellite:
                 invalidateMenu();
                 mMapController.setMapViewMode(NMapView.VIEW_MODE_HYBRID);
-                return true;
-
-            case R.id.action_traffic:
-                invalidateMenu();
-                mMapController.setMapViewTrafficMode(!mMapController.getMapViewTrafficMode());
-                return true;
-
-            case R.id.action_bicycle:
-                invalidateMenu();
-                mMapController.setMapViewBicycleMode(!mMapController.getMapViewBicycleMode());
-                return true;
-
-            case R.id.action_zoom:
-                mMapView.displayZoomControls(true);
                 return true;
 
             case R.id.action_my_location:
